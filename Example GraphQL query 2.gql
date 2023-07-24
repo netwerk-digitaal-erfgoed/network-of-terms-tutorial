@@ -1,0 +1,19 @@
+query {
+  terms(
+    sources: ["https://data.muziekweb.nl/MuziekwebOrganization/Muziekweb/sparql/Muziekweb#mw-personengroepen"]
+    query: "Pink Floyd"
+  ) {
+    source {
+      uri
+    }
+    result {
+      ... on Terms {
+        terms {
+          uri
+          prefLabel
+          scopeNote
+        }
+      }
+    }
+  }
+}
