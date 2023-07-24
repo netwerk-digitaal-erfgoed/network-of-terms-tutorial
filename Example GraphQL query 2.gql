@@ -1,3 +1,6 @@
+# Workshop Network of Terms
+
+# Query a specific source 
 query {
   terms(
     sources: ["https://data.muziekweb.nl/MuziekwebOrganization/Muziekweb/sparql/Muziekweb#mw-personengroepen"]

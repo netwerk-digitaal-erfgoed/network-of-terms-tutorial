@@ -1,3 +1,6 @@
+# Workshop Network of Terms
+
+# List available terminology sources
 query sources {
   sources {
     name
