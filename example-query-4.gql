@@ -1,0 +1,15 @@
+# Workshop Network of Terms
+
+# List available terminology sources
+# including the Reconcilation API endpoints
+query sources {
+  sources {
+    name
+    uri
+    description
+    features {
+      type
+      url
+    }
+  }
+} 
