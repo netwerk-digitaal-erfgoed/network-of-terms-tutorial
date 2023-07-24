@@ -5,7 +5,7 @@ query {
   ) {
     source {
       uri
-    }
+    } 
     result {
       ... on Terms {
         terms {
