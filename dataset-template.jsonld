@@ -1,0 +1,70 @@
+{
+  "@context": "https://schema.org/docs/jsonldcontext.jsonld",
+
+  "@id": "unique identifier for the dataset, a real of fake URI
+          example: http://vocab.getty.edu/aat/materials",
+
+  "@type": "Dataset",
+
+  "name": [
+    {
+      "@language": "language code like en,nl etc",
+      "@value": "Full name of the datasource"
+    }
+  ],
+  "alternateName": [
+    {
+      "@language": "language code like en,nl etc",
+      "@value": "Short name of the datasource"
+    }
+  ],
+  "creator": [
+    {
+      "@id": "identifier of the publisher as defined in catalog/publisher.jsonld"
+    }
+  ],
+  "url": [ 
+    "list of prefixes that identify the URIs that can be found in this datasource
+     example: http://vocab.getty.edu/aat/"
+  ],
+  "description": [
+    {
+      "@language": "language code like en,nl etc",
+      "@value": "Description of the datasource"
+    }
+  ],
+  "distribution": [
+    {
+      "@id": "unique id for this distribution endpoint
+              example: http://vocab.getty.edu/aat/sparql/materials",
+      "@type": "DataDownload",
+      "contentUrl": "URL of the sparql endpoint,
+                    example: http://vocab.getty.edu/sparql",
+      "encodingFormat": "application/sparql-query",
+      "potentialAction": [
+        {
+          "@type": "SearchAction",
+          "query": "path to the SPARQL Query for searching in the datasource
+                    for example: file://catalog/queries/search/aat-materials.rq"
+        },
+        {
+          "@type": "FindAction",
+          "query": "path to the SPARQL Query for finding URI definitions in the datasource
+                    file://catalog/queries/lookup/aat.rq"
+        },
+        {
+          "#comment": "the selection below is static and generates the reconliation endpoint",
+          "@type": "Action",
+          "target": {
+            "@type": "EntryPoint",
+            "actionApplication": {
+              "@id": "https://reconciliation-api.github.io/specs/latest/",
+              "@type": "SoftwareApplication"
+            },
+            "urlTemplate": "https://termennetwerk-api.netwerkdigitaalerfgoed.nl/reconcile/{distribution}"
+          }
+        }
+      ]
+    }
+  ]
+}
