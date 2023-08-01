@@ -1,0 +1,22 @@
+# Workshop Network of Terms
+
+# Query the AAT materials hierarchy 
+query {
+  terms(
+    sources: ["http://vocab.getty.edu/aat/sparql/materials"]
+    query: "Goud"
+  ) {
+    source {
+      uri
+    } 
+    result {
+      ... on Terms {
+        terms {
+          uri
+          prefLabel
+          scopeNote
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,28 @@
+GND SPARQL ENDPOINT
+https://zbw.eu/beta/sparql/gnd/query
+
+In yasgui.triply.cc
+
+PREFIX text: <http://jena.apache.org/text#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX :        <https://d-nb.info/gnd/>
+PREFIX gndo:    <https://d-nb.info/standards/elementset/gnd#>
+
+select *
+where {
+  ?person text:query "Mulisch" .
+  ?person a gndo:DifferentiatedPerson .
+  ?person gndo:preferredNameForThePerson ?preferredNameForThePerson ;
+#  OPTIONAL { ?person gndo:preferredNameEntityForThePerson ?preferredNameEntityForThePerson }
+  OPTIONAL { ?person gndo:variantNameForThePerson ?variantNameForThePerson }
+#  OPTIONAL { ?person gndo:variantNameEntityForThePerson ?variantNameEntityForThePerson }
+  OPTIONAL { ?person gndo:dateOfBirth ?dateOfBirth }
+  OPTIONAL { ?person gndo:placeOfBirth ?placeOfBirthURI .
+             ?placeOfBirthURI gndo:preferredNameForThePlaceOrGeographicName ?placeOfBirth }
+  OPTIONAL { ?person gndo:dateOfDeath ?dateOfDeath }
+  OPTIONAL { ?person gndo:placeOfDeath ?placeOfDeathURI .
+             ?placeOfDeathURI gndo:preferredNameForThePlaceOrGeographicName ?placeOfDeath }
+  OPTIONAL { ?person gndo:relatedTerm ?relatedTerm }
+  OPTIONAL { ?person gndo:relatedPerson ?relatedPerson }
+
+} limit 100
