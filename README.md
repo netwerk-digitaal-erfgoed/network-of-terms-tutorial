@@ -1,2 +1,2 @@
-# Network-of-Terms-Workshop
-Examples and documentation for using Network of Terms functionality, see [wiki](https://github.com/netwerk-digitaal-erfgoed/network-of-terms-workshop/wiki) for more information.
+# Network of Terms Tutorial
+Examples and documentation used in the [Network of Terms Tutorial](https://github.com/netwerk-digitaal-erfgoed/network-of-terms-workshop/wiki).
