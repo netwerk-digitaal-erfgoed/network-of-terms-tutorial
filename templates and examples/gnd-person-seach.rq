@@ -1,0 +1,45 @@
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX text: <http://jena.apache.org/text#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX gndo:    <https://d-nb.info/standards/elementset/gnd#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+
+CONSTRUCT {
+    ?uri a skos:Concept ;
+       skos:prefLabel ?preferredNameForThePerson ;
+       skos:altLabel ?variantNameForThePerson ;
+       skos:scopeNote ?scopeNote;
+       rdfs:seeAlso ?sameAs .
+}
+WHERE {
+  # use the available full text index 
+  ?uri text:query ?query .
+
+  # limit the results to the DifferentiatedPerson class
+  ?uri a gndo:DifferentiatedPerson .
+
+  # every person should have a preffered name
+  ?uri gndo:preferredNameForThePerson ?preferredNameForThePerson .
+
+  # collect optional variant names
+  OPTIONAL { ?uri gndo:variantNameForThePerson ?variantNameForThePerson }
+
+  # collect some more data useful for disambiguation
+  # the API has no facilities for reporting detailed data
+  # but we can build a scopeNote from it
+  OPTIONAL { ?uri gndo:dateOfBirth ?dateOfBirth  }
+  OPTIONAL { ?uri gndo:placeOfBirth/gndo:preferredNameForThePlaceOrGeographicName ?placeOfBirth }
+  OPTIONAL { ?uri gndo:dateOfDeath ?dateOfDeath }
+  OPTIONAL { ?uri gndo:placeOfDeath/gndo:preferredNameForThePlaceOrGeographicName ?placeOfDeath }
+  BIND( "" as ?s1 ) .
+  BIND( IF( BOUND( ?dateOfBirth ), CONCAT ( ?s1, "born in ", STR( ?dateOfBirth ), " " ), ?s1 ) as ?s2 )
+  BIND( IF( BOUND( ?placeOfBirth ),CONCAT( ?s2," (", ?placeOfBirth, ") "), ?s2 ) as ?s3 )
+  BIND( IF( BOUND( ?dateOfDeath ), CONCAT( ?s3," deceased in ", STR(?dateOfDeath)), ?s3 ) as ?s4)
+  BIND( IF( BOUND( ?placeOfDeath ), CONCAT( ?s4," (", ?placeOfDeath, ") " ), ?s4 ) as ?scopeNote ) 
+
+  # collect the sameAs links, we can report these as seeAlso values
+  OPTIONAL { ?uri owl:sameAs ?sameAs }
+
+} limit 1000
