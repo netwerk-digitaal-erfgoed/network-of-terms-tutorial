@@ -1,6 +1,6 @@
 {
   "@context": "https://schema.org/docs/jsonldcontext.jsonld",
-  "@id": "https://www.dnb.de/gnd#persons",
+  "@id": "https://www.dnb.de/gnd/persons",
   "@type": "Dataset",
 
   "name": [ 
@@ -26,7 +26,7 @@
   ],
   "distribution": [
     {
-      "@id": "https://zbw.eu/beta/sparql/gnd/query#persons",
+      "@id": "https://zbw.eu/beta/sparql/gnd/query/persons",
       "@type": "DataDownload",
       "contentUrl": "https://zbw.eu/beta/sparql/gnd/query",
       "encodingFormat": "application/sparql-query",

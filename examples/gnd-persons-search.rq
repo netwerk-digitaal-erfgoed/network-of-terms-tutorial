@@ -10,8 +10,7 @@ CONSTRUCT {
     ?uri a skos:Concept ;
        skos:prefLabel ?preferredNameForThePerson ;
        skos:altLabel ?variantNameForThePerson ;
-       skos:scopeNote ?scopeNote;
-       rdfs:seeAlso ?sameAs .
+       skos:scopeNote ?scopeNote .
 }
 WHERE {
   # use the available full text index 
