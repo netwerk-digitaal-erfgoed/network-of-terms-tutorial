@@ -15,7 +15,7 @@ CONSTRUCT {
 }
 WHERE {
   # use the available full text index 
-  ?uri text:query ?query .
+  ?uri text:query ?virtuosoQuery .
 
   # limit the results to the DifferentiatedPerson class
   ?uri a gndo:DifferentiatedPerson .
