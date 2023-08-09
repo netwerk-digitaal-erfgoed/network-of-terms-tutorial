@@ -1,0 +1,76 @@
+{
+  "@context": "https://schema.org/docs/jsonldcontext.jsonld",
+
+  "@id": "UNIQUE IDENTIFIER FOR THE DATASET A REAL URI OR MINTED VERSION 
+         EXAMPLE: http://vocab.getty.edu/aat/materials",
+
+  "@type": "FIXED VALUE: Dataset",
+
+  "name": [
+    {
+      "@language": "LANGUAGE CODE: nl, en, other..",
+      "@value": "FULL NAME OF THE DATA SOURCE"
+    }
+  ],
+  "alternateName": [
+    {
+      "@language": "LANGUAGE CODE: nl, en, other..",
+      "@value": "SHORT NAME NAME OF THE DATA SOURCE"
+    }
+  ],
+  "creator": [
+    {
+      "@id": "IDENTIFIER OF THE PUBLISHER AS DEFINED IN publisher.jsonld"
+    }
+  ],
+  "url": [ 
+    "LIST OF ONE OR MORE PREFIXES THAT IDENTIFY THE URIs THAT CAN BE FOUND IN THIS SOURCE
+     EXAMPLE: http://vocab.getty.edu/aat/"
+  ],
+  "description": [
+    {
+      "@language": "LANGUAGE CODE: nl, en, other..",
+      "@value": "INFORMATIVE DESCRIPTION OF THE DATA SOURCE FOR HUMAN REFERENCE"
+    }
+  ],
+  "distribution": [
+    {
+      "@id": "UNIQUE ID FOR THIS DATA DOWNLOAD ENDPOINT, CAN BE A MINTED URI
+              EXAMPLE: http://vocab.getty.edu/aat/sparql/materials",
+
+      "@type": "FIXED VALUE: DataDownload",
+
+      "contentUrl": "URL OF THE SPARQL ENDPOINT - SHOULD EXISTS!,
+                     EXAMPLE: http://vocab.getty.edu/sparql",
+
+      "encodingFormat": "FIXED VALUE: application/sparql-query",
+
+      "potentialAction": [
+        {
+          "@type": "FIXED VALUE: SearchAction",
+          "query": "PATH TO THE SPARQL QUERY FOR SEARCHING IN THE DATA SOURCE
+                    EXAMPLE: file://catalog/queries/search/aat-materials.rq"
+        },
+        {
+          "@type": "FIXED VALUE: FindAction",
+          "query": "PATH TO THE SPARQL QUERY FOR FINDING URI DEFINITIONS IN THE DATA SOURCE
+                    EXAMPLE: file://catalog/queries/lookup/aat.rq"
+        },
+
+        {
+          "//comment": "USE THE VALUES BELOW FOR ALL DATA SOURCE - DO NOT MODIFY
+                        IT GENERATES THE RECONCILIATION SERVICE ENDPOINT FOR EACH SOURCE",
+          "@type": "Action",
+          "target": {
+            "@type": "EntryPoint",
+            "actionApplication": {
+              "@id": "https://reconciliation-api.github.io/specs/latest/",
+              "@type": "SoftwareApplication"
+            },
+            "urlTemplate": "https://termennetwerk-api.netwerkdigitaalerfgoed.nl/reconcile/{distribution}"
+          }
+        }
+      ]
+    }
+  ]
+}

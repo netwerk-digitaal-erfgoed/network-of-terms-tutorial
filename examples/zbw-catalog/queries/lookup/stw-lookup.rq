@@ -1,0 +1,41 @@
+PREFIX text: <http://jena.apache.org/text#>
+PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+
+CONSTRUCT {
+  ?uri a skos:Concept ;
+    skos:prefLabel ?prefLabel ;
+    skos:altLabel ?altLabel ;
+    skos:broader ?broader_uri ;
+    skos:narrower ?narrower_uri .
+  ?broader_uri skos:prefLabel ?broader_prefLabel .
+  ?narrower_uri skos:prefLabel ?narrower_prefLabel .
+}
+WHERE {
+
+  VALUES ( ?language ) { ( "en" ) }
+
+  VALUES  ?uri  { ?uris }
+  
+  ?uri skos:prefLabel ?prefLabel .
+  filter( lang(?prefLabel) = ?language )
+  filter (not exists { ?uri owl:deprecated true })
+
+  optional {
+    ?uri skos:altLabel ?altLabel .
+    filter( lang(?altLabel) = ?language)
+  }
+
+  optional {
+    ?uri skos:broader ?broader_uri .
+    ?broader_uri skos:prefLabel ?broader_prefLabel .
+    filter (lang(?broader_prefLabel) = ?language)    
+  }
+
+  # present the inverse broader relation as a narrower relation
+  optional {
+    ?narrower_uri skos:broader ?uri .
+    ?narrower_uri skos:prefLabel ?narrower_prefLabel .
+    filter (lang(?narrower_prefLabel) = ?language)    
+  }
+
+} limit 1000

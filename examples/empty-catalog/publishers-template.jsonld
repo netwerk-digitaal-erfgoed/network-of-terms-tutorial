@@ -1,0 +1,23 @@
+{
+  "@context": "https://schema.org/docs/jsonldcontext.jsonld",
+  "@graph": [
+    {
+      "@id": "UNIQUE IDENTIFIER FOR THE ORGANIZATION PREFERABLY A URI/URL",
+      "@type": "FIXED VALUE: Organization",                                
+      "name": "FULL NAME OF THE ORGANIZATION",
+      "alternateName": "OPTIONAL SHORT NAME OR ABBREVIATION"
+    },
+    {
+      "@id": "http://www.getty.edu/research/",
+      "@type": "Organization",                                
+      "name": "Getty Research Institute",
+      "alternateName": "Getty"
+    },
+    {
+      "//comment":"REPEAT FOR ALL UNIQUE PUBLISHERS OF DATASETS"
+    }
+  ]
+}
+
+
+

@@ -1,0 +1,68 @@
+{
+  "@context": "https://schema.org/docs/jsonldcontext.jsonld",
+
+  "@id": "https://zbw.eu/stw",
+
+  "@type": "Dataset",
+
+  "name": [
+    {
+      "@language": "en",
+      "@value": "Thesaurus for Economics"
+    }
+  ],
+  "alternateName": [
+    {
+      "@language": "en",
+      "@value": "STW"
+    }
+  ],
+  "creator": [
+    {
+      "@id": "https://zbw.eu/"
+    }
+  ],
+  "url": [ 
+    "http://zbw.eu/stw/"
+  ],
+  "description": [
+    {
+      "@language": "en",
+      "@value": "The thesaurus provides vocabulary on any economic subject: almost 6,000 standardized subject headings and about 20,000 additional entry terms to support individual keywords. You can also find technical terms used in law, sociology, or politics, and geographic names. When selecting terms from this vocabulary, you can be sure to get results matching your search query."
+    }
+  ],
+  "distribution": [
+    {
+      "@id": "http://zbw.eu/beta/sparql/stw/",
+
+      "@type": "DataDownload",
+
+      "contentUrl": "http://zbw.eu/beta/sparql/stw/query",
+
+      "encodingFormat": "application/sparql-query",
+
+      "potentialAction": [
+        {
+          "@type": "SearchAction",
+          "query": "file://zbw-catalog/queries/search/stw-search.rq"
+        },
+        {
+          "@type": "FindAction",
+          "query": "file://zbw-catalog/queries/lookup/stw-lookup.rq"
+        },
+
+        {
+          "@type": "Action",
+          "target": {
+            "@type": "EntryPoint",
+            "actionApplication": {
+              "@id": "https://reconciliation-api.github.io/specs/latest/",
+              "@type": "SoftwareApplication"
+            },
+            "urlTemplate": "https://localhost:3123/reconcile/{distribution}"
+          }
+        }
+      ]
+    }
+  ]
+}

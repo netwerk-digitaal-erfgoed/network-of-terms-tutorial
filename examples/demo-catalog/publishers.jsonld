@@ -1,0 +1,14 @@
+{
+  "@context": "https://schema.org/docs/jsonldcontext.jsonld",
+  "@graph": [
+    {
+      "@id": "https://www.dnb.de",
+      "@type": "Organization",                                
+      "name": "German National Library",
+      "alternateName": "DNB"
+    }
+  ]
+}
+
+
+

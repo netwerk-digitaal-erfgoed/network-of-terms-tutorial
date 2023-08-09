@@ -1,0 +1,42 @@
+PREFIX text: <http://jena.apache.org/text#>
+PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+
+CONSTRUCT {
+  ?uri a skos:Concept ;
+    skos:prefLabel ?prefLabel ;
+    skos:altLabel ?altLabel ;
+    skos:broader ?broader_uri ;
+    skos:narrower ?narrower_uri .
+  ?broader_uri skos:prefLabel ?broader_prefLabel .
+  ?narrower_uri skos:prefLabel ?narrower_prefLabel .
+}
+WHERE {
+  VALUES ( ?language ) { ( "en" ) }
+
+  (?uri ?score) text:query (skos:prefLabel skos:altLabel ?query 100 ) .  # example "labour"
+
+  ?uri skos:prefLabel ?prefLabel .
+
+  # limit results to STW classes only
+  ?uri skos:inScheme <http://zbw.eu/stw> .
+
+  FILTER( lang( ?prefLabel ) = ?language )
+  FILTER( NOT EXISTS { ?uri owl:deprecated true } )
+  OPTIONAL {
+    ?uri skos:altLabel ?altLabel .
+    FILTER( lang( ?altLabel ) = ?language)
+  }
+  OPTIONAL {
+    ?uri skos:broader ?broader_uri .
+    ?broader_uri skos:prefLabel ?broader_prefLabel .
+    FILTER( lang(?broader_prefLabel ) = ?language)    
+  }
+  
+  # present the inverse broader relation as a narrower relation
+  OPTIONAL {
+    ?narrower_uri skos:broader ?uri .
+    ?narrower_uri skos:prefLabel ?narrower_prefLabel .
+    FILTER( lang( ?narrower_prefLabel ) = ?language )    
+  }
+  
+} ORDER BY DESC( ?score ) LIMIT 1000
