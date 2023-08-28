@@ -1,0 +1,61 @@
+{
+  "@context": "https://schema.org/docs/jsonldcontext.jsonld",
+
+  "@id": "http://dbpedia.org/places",
+
+  "@type": "Dataset",
+
+  "name": [
+    {
+      "@language": "en",
+      "@value": "DBpedia Places"
+    }
+  ],
+  "creator": [
+    {
+      "@id": "http://dbpedia.org/"
+    }
+  ],
+  "url": [ 
+    "http://dbpedia.org/resource"
+  ],
+  "description": [
+    {
+      "@language": "en",
+      "@value": "DBpedia places (based on TriplyDB DBpedia endpoint)"
+    }
+  ],
+  "distribution": [
+    {
+      "@id": "http://dbpedia.org/sparql/places",
+
+      "@type": "DataDownload",
+
+      "contentUrl": "https://api.triplydb.com/datasets/DBpedia-association/dbpedia/services/dbpedia/sparql",
+
+      "encodingFormat": "application/sparql-query",
+
+      "potentialAction": [
+        {
+          "@type": "SearchAction",
+          "query": "file://dbpedia-catalog/queries/search/dbpedia-places-search.rq"
+        },
+        {
+          "@type": "FindAction",
+          "query": "file://dbpedia-catalog/queries/lookup/dbpedia-places-lookup.rq"
+        },
+        {
+          "@type": "Action",
+          "target": {
+            "@type": "EntryPoint",
+            "actionApplication": {
+              "@id": "https://reconciliation-api.github.io/specs/latest/",
+              "@type": "SoftwareApplication"
+            },
+            "urlTemplate": "https://localhost:3123/reconcile/{distribution}"
+          }
+        }
+      ]
+    }
+  ]
+}

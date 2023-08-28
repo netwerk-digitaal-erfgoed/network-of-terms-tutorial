@@ -1,0 +1,14 @@
+{
+  "@context": "https://schema.org/docs/jsonldcontext.jsonld",
+  "@graph": [
+    {
+      "@id": "http://dbpedia.org/",
+      "@type": "Organization",                                
+      "name": "DBpedia Association",
+      "alternateName": "DBpedia"
+    }
+  ]
+}
+
+
+
