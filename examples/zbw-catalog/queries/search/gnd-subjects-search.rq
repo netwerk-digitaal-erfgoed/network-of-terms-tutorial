@@ -1,0 +1,44 @@
+# Text search for subject headings
+#
+# Uses diverse literal properties, brings the best match on top
+# of the list
+#
+PREFIX  gndo:   <https://d-nb.info/standards/elementset/gnd#>
+PREFIX  text:   <http://jena.apache.org/text#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+CONSTRUCT {
+  ?uri a skos:Concept ;
+    skos:prefLabel ?prefLabel ;
+    skos:altLabel ?altLabel ;
+    skos:broader ?broader_uri ;
+    skos:narrower ?narrower_uri .
+  ?broader_uri skos:prefLabel ?broader_prefLabel .
+  ?narrower_uri skos:prefLabel ?narrower_prefLabel .
+}
+where {
+  # full text search - limit number of results to 20
+  # (case and punctuation in the search string are ignored)
+  (?uri ?score) text:query (?query 20) .
+  #
+  # add information for display
+  ?uri rdf:type gndo:SubjectHeadingSensoStricto ;
+          gndo:preferredNameForTheSubjectHeading ?prefLabel ;
+          gndo:gndIdentifier ?gndId .
+  OPTIONAL {
+     ?uri gndo:definition ?scopeNote .
+  }
+  OPTIONAL {
+    ?uri gndo:variantNameForTheSubjectHeading ?altLabel .
+  }
+  OPTIONAL {
+     ?uri gndo:broaderTermGeneral ?broader_uri .
+     ?broader_uri gndo:preferredNameForTheSubjectHeading ?broader_prefLabel .
+  }
+  OPTIONAL {
+     ?narrower_uri gndo:broaderTermGeneral ?uri .
+     ?narrower_uri gndo:preferredNameForTheSubjectHeading ?narrower_prefLabel .
+  }
+}
+order by desc(?score)
