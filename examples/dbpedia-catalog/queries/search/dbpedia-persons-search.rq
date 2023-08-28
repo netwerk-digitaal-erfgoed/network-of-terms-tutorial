@@ -10,9 +10,10 @@ CONSTRUCT {
         skos:scopeNote ?abstract .
 }
 WHERE {
-  VALUES ?uri { ?uris }
   ?uri rdfs:label ?label ;
-     dbo:abstract ?abstract .
+     dbo:abstract ?abstract ;
+     rdf:type dbo:Person .
+  ?label <bif:contains> ?virtuosoQuery
   FILTER(LANG(?label)="en")
   FILTER(LANG(?abstract)="en")
 } LIMIT 1000

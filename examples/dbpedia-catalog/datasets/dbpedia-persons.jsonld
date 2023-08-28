@@ -1,14 +1,14 @@
 {
   "@context": "https://schema.org/docs/jsonldcontext.jsonld",
 
-  "@id": "http://dbpedia.org/places",
+  "@id": "http://dbpedia.org/persons",
 
   "@type": "Dataset",
 
   "name": [
     {
       "@language": "en",
-      "@value": "DBpedia Places"
+      "@value": "DBpedia Persons"
     }
   ],
   "creator": [
@@ -22,12 +22,12 @@
   "description": [
     {
       "@language": "en",
-      "@value": "DBpedia places (based on TriplyDB DBpedia endpoint)"
+      "@value": "DBpedia persons (based on TriplyDB DBpedia endpoint)"
     }
   ],
   "distribution": [
     {
-      "@id": "http://dbpedia.org/sparql/places",
+      "@id": "http://dbpedia.org/sparql/persons",
 
       "@type": "DataDownload",
 
@@ -38,7 +38,7 @@
       "potentialAction": [
         {
           "@type": "SearchAction",
-          "query": "file://dbpedia-catalog/queries/search/dbpedia-places-search.rq"
+          "query": "file://dbpedia-catalog/queries/search/dbpedia-persons-search.rq"
         },
         {
           "@type": "FindAction",
