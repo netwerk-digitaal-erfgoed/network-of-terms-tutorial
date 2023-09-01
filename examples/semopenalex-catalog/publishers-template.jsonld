@@ -1,0 +1,14 @@
+{
+  "@context": "https://schema.org/docs/jsonldcontext.jsonld",
+  "@graph": [
+    {
+      "@id": "https://semopenalex.org",
+      "@type": "Organization",                                
+      "name": "SemOpenAlex Dataset",
+      "alternateName": "SemOpenAlex"
+    }
+  ]
+}
+
+
+

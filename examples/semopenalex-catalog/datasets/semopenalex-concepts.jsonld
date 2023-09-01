@@ -1,0 +1,62 @@
+{
+  "@context": "https://schema.org/docs/jsonldcontext.jsonld",
+
+  "@id": "https://semopenalex.org/concepts",
+
+  "@type": "Dataset",
+
+  "name": [
+    {
+      "@language": "en",
+      "@value": "SemOpenAlex Concepts"
+    }
+  ],
+  "creator": [
+    {
+      "@id": "https://semopenalex.org"
+    }
+  ],
+  "url": [ 
+    "https://semopenalex.org/"
+  ],
+  "description": [
+    {
+      "@language": "en",
+      "@value": "SemOpenAlex concepts as available in https://semopenalex.org/sparql"
+    }
+  ],
+  "distribution": [
+    {
+      "@id": "https://semopenalex.org/sparql/concepts",
+
+      "@type": "DataDownload",
+
+      "contentUrl": "https://semopenalex.org/sparql",
+
+      "encodingFormat": "application/sparql-query",
+
+      "potentialAction": [
+        {
+          "@type": "SearchAction",
+          "query": "file://semopenalex-catalog/queries/search/semopenalex-search-concepts.rq"
+        },
+        {
+          "@type": "FindAction",
+          "query": "file://semopenalex-catalog/queries/lookup/semopenalex-lookup.rq"
+        },
+
+        {
+          "@type": "Action",
+          "target": {
+            "@type": "EntryPoint",
+            "actionApplication": {
+              "@id": "https://reconciliation-api.github.io/specs/latest/",
+              "@type": "SoftwareApplication"
+            },
+            "urlTemplate": "https://localhost:3123/reconcile/{distribution}"
+          }
+        }
+      ]
+    }
+  ]
+}

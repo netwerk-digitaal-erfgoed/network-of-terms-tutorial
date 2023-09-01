@@ -1,0 +1,45 @@
+PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+
+CONSTRUCT {
+    ?uri a skos:Concept ;
+        skos:prefLabel ?prefLabel ;
+        skos:altLabel ?altLabel ;
+        skos:scopeNote ?scopeNote ;
+        skos:broader ?broader_uri ;
+        skos:narrower ?narrower_uri ;
+        skos:related ?related_uri .
+    ?broader_uri skos:prefLabel ?broader_prefLabel .
+    ?narrower_uri skos:prefLabel ?narrower_prefLabel .
+    ?related_uri skos:prefLabel ?related_prefLabel .
+}
+WHERE {
+    ?uri ?predicate ?label .
+    VALUES ?predicate { skos:prefLabel skos:altLabel }
+
+    ?uri skos:inScheme <https://docs.openalex.org/about-the-data/concept>
+    
+    FILTER(CONTAINS(LCASE(?label), LCASE(?query)))
+    OPTIONAL {
+        ?uri skos:prefLabel ?prefLabel .
+    }
+    OPTIONAL {
+        ?uri skos:altLabel ?altLabel .
+    }
+    OPTIONAL {
+        ?uri skos:note ?scopeNote .
+    }
+    OPTIONAL {
+        ?uri skos:broader ?broader_uri .
+        ?broader_uri skos:prefLabel ?broader_prefLabel .
+    }
+    # create a "virtual" narrower relation based on the inverse of the broader relation
+    OPTIONAL {
+        ?narrower_uri skos:broader ?uri .
+        ?narrower_uri skos:prefLabel ?narrower_prefLabel .
+    }
+    OPTIONAL {
+        ?uri skos:related ?related_uri .
+        ?related_uri skos:prefLabel ?related_prefLabel .
+    }
+}
+LIMIT 1000
