@@ -1,0 +1,45 @@
+PREFIX sp: <https://semopenalex.org/property/>
+PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+PREFIX sc: <https://semopenalex.org/class/>
+PREFIX soa: <https://semopenalex.org/property/> 
+PREFIX skos: <http://www.w3.org/2004/02/skos/core#> 
+PREFIX elastic: <http://www.ontotext.com/connectors/elasticsearch#>
+PREFIX elastic-index: <http://www.ontotext.com/connectors/elasticsearch/instance#>
+PREFIX org: <http://www.w3.org/ns/org#>
+PREFIX dct: <http://purl.org/dc/terms/>
+PREFIX fabio: <http://purl.org/spar/fabio/>
+PREFIX datacite: <http://purl.org/spar/datacite/>
+
+CONSTRUCT {
+    ?uri a skos:Concept ;
+        skos:prefLabel ?title ;
+        skos:related ?creator_uri ;
+        skos:scopeNote ?scopeNote .
+        ?creator_uri skos:prefLabel ?creatorName .
+}
+WHERE {
+  ?search a elastic-index:semopenalex-works ;
+      elastic:query ?query ;
+      elastic:entities ?uri .
+  ?uri elastic:score ?score .
+  ?uri dct:title ?title .
+  OPTIONAL {
+    ?uri dct:abstract ?abstract .
+    BIND(COALESCE(CONCAT(SUBSTR(?abstract,1,200),"..."),?abstract) as ?shortAbstract)
+  }
+  OPTIONAL {
+    ?uri dct:creator ?creator_uri .
+    ?creator_uri foaf:name ?creatorName .
+  }
+  OPTIONAL {
+    ?uri fabio:hasPublicationYear ?publicationYear .
+  }
+  OPTIONAL {
+    ?uri datacite:doi ?doi 
+  }
+  BIND("" as ?note)
+  BIND(IF(BOUND(?shortAbstract),CONCAT(?shortAbstract,", "),"") as ?noteAbstract)
+  BIND(IF(BOUND(?doi),CONCAT(?doi,", "),"") as ?noteDOI)
+  BIND(IF(BOUND(?publicationYear),CONCAT("Publication Year: ",STR(?publicationYear)," "),"") as ?notePublicationYear) 
+  BIND(CONCAT(?noteAbstract, ?noteDOI, ?notePublicationYear) as ?scopeNote)
+} ORDER BY DESC(?score) LIMIT 1000

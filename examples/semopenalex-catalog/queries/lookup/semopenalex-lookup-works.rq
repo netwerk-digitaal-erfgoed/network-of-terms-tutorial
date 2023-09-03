@@ -1,0 +1,38 @@
+PREFIX sp: <https://semopenalex.org/property/>
+PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+PREFIX sc: <https://semopenalex.org/class/>
+PREFIX soa: <https://semopenalex.org/property/> 
+PREFIX skos: <http://www.w3.org/2004/02/skos/core#> 
+PREFIX elastic: <http://www.ontotext.com/connectors/elasticsearch#>
+PREFIX elastic-index: <http://www.ontotext.com/connectors/elasticsearch/instance#>
+PREFIX org: <http://www.w3.org/ns/org#>
+PREFIX dct: <http://purl.org/dc/terms/>
+PREFIX fabio: <http://purl.org/spar/fabio/>
+
+CONSTRUCT {
+    ?uri a skos:Concept ;
+        skos:prefLabel ?title ;
+        skos:related ?creator_uri ;
+        skos:scopeNote ?scopeNote .
+        ?creator_uri skos:prefLabel ?creatorName .
+}
+WHERE {
+  VALUES ?uri { ?uris }
+
+  ?uri dct:title ?title .
+  OPTIONAL {
+    ?uri dct:abstract ?abstract .
+    BIND(COALESCE(SUBSTR(?abstract,1,100),?abstract) as ?shortAbstract)
+  }
+  OPTIONAL {
+    ?uri dct:creator ?creator_uri .
+    ?creator_uri foaf:name ?creatorName .
+  }
+  OPTIONAL {
+    ?uri fabio:hasPublicationYear ?publicationYear .
+  }
+  BIND("" as ?note)
+  BIND(IF(BOUND(?shortAbstract),CONCAT(?shortAbstract,", "),"") as ?noteAbstract)
+  BIND(IF(BOUND(?publicationYear),CONCAT("Publication Year: ",STR(?publicationYear)," "),"") as ?notePublicationYear) 
+  BIND(CONCAT(?noteAbstract, ?notePublicationYear) as ?scopeNote)
+} LIMIT 1000

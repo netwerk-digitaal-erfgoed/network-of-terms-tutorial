@@ -1,0 +1,40 @@
+PREFIX sp: <https://semopenalex.org/property/>
+PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+PREFIX sc: <https://semopenalex.org/class/>
+PREFIX soa: <https://semopenalex.org/property/> 
+PREFIX skos: <http://www.w3.org/2004/02/skos/core#> 
+PREFIX elastic: <http://www.ontotext.com/connectors/elasticsearch#>
+PREFIX elastic-index: <http://www.ontotext.com/connectors/elasticsearch/instance#>
+PREFIX org: <http://www.w3.org/ns/org#>
+
+CONSTRUCT {
+    ?uri a skos:Concept ;
+        skos:prefLabel ?name ;
+        skos:altLabel ?alternateName ;
+        skos:scopeNote ?scopeNote .
+}
+WHERE {
+  ?search a elastic-index:semopenalex-authors ;
+      elastic:query ?query ;
+      elastic:entities ?uri .
+  ?uri elastic:score ?score .
+  ?uri foaf:name ?name .
+  OPTIONAL {
+    ?uri sp:alternativeName ?alternateName .
+  }
+  OPTIONAL {
+    ?uri org:memberOf ?institution .
+    ?institution foaf:name ?orgName .
+  }
+  OPTIONAL {
+    ?uri sp:citedByCount ?citedByCount .
+  }
+  OPTIONAL {
+    ?uri sp:worksCount ?worksCount .
+  }
+  BIND("" as ?note)
+  BIND(IF(BOUND(?orgName),CONCAT(?orgName,", "),"") as ?noteOrg)
+  BIND(IF(BOUND(?citedByCount),CONCAT("Cited by: ",STR(?citedByCount),", "),"") as ?noteCitedByCnt)
+  BIND(IF(BOUND(?worksCount),CONCAT("Number of works: ",STR(?worksCount)," "),"") as ?noteWorksCnt) 
+  BIND(CONCAT(?noteOrg, ?noteCitedByCnt, ?noteWorksCnt) as ?scopeNote)
+} ORDER BY DESC(?score) LIMIT 1000

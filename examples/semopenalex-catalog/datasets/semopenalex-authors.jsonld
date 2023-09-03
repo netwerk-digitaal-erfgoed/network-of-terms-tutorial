@@ -1,14 +1,14 @@
 {
   "@context": "https://schema.org/docs/jsonldcontext.jsonld",
 
-  "@id": "https://semopenalex.org/concepts",
+  "@id": "https://semopenalex.org/authors",
 
   "@type": "Dataset",
 
   "name": [
     {
       "@language": "en",
-      "@value": "SemOpenAlex Concepts"
+      "@value": "SemOpenAlex Authors"
     }
   ],
   "creator": [
@@ -17,17 +17,17 @@
     }
   ],
   "url": [ 
-    "https://semopenalex.org/concept/"
+    "https://semopenalex.org/author/"
   ],
   "description": [
     {
       "@language": "en",
-      "@value": "SemOpenAlex concepts as available in https://semopenalex.org/sparql"
+      "@value": "SemOpenAlex authors as available in https://semopenalex.org/sparql"
     }
   ],
   "distribution": [
     {
-      "@id": "https://semopenalex.org/sparql/concepts",
+      "@id": "https://semopenalex.org/sparql/authors",
 
       "@type": "DataDownload",
 
@@ -38,11 +38,11 @@
       "potentialAction": [
         {
           "@type": "SearchAction",
-          "query": "file://semopenalex-catalog/queries/search/semopenalex-search-concepts.rq"
+          "query": "file://semopenalex-catalog/queries/search/semopenalex-search-authors.rq"
         },
         {
           "@type": "FindAction",
-          "query": "file://semopenalex-catalog/queries/lookup/semopenalex-lookup-concepts.rq"
+          "query": "file://semopenalex-catalog/queries/lookup/semopenalex-lookup-authors.rq"
         },
 
         {
