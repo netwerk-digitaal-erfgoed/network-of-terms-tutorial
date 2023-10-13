@@ -24,6 +24,7 @@
       "@language": "en", "@value": "Differentiated Persons selected from Integrated Authority File (GND) maintained by the German National Library (DNB)"
     }
   ],
+  "inLanguage": [ "en" ],
   "distribution": [
     {
       "@id": "https://zbw.eu/beta/sparql/gnd/query/persons",

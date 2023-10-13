@@ -31,6 +31,7 @@
       "@value": "The thesaurus provides vocabulary on any economic subject: almost 6,000 standardized subject headings and about 20,000 additional entry terms to support individual keywords. You can also find technical terms used in law, sociology, or politics, and geographic names. When selecting terms from this vocabulary, you can be sure to get results matching your search query."
     }
   ],
+  "inLanguage": [ "en" ],
   "distribution": [
     {
       "@id": "http://zbw.eu/beta/sparql/stw/",

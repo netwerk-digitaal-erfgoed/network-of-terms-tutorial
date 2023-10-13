@@ -25,6 +25,7 @@
       "@value": "SemOpenAlex Works as available in https://semopenalex.org/sparql"
     }
   ],
+  "inLanguage": [ "en" ],
   "distribution": [
     {
       "@id": "https://semopenalex.org/sparql/works",

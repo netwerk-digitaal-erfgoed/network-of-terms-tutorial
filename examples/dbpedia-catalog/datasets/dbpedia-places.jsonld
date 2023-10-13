@@ -25,6 +25,7 @@
       "@value": "DBpedia places (based on TriplyDB DBpedia endpoint)"
     }
   ],
+  "inLanguage": [ "en" ],
   "distribution": [
     {
       "@id": "http://dbpedia.org/sparql/places",
